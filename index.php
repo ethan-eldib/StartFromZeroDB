@@ -125,11 +125,6 @@ if (isset($_POST['reset'])) {
             </label>
             <label class="control-label col-6">
                 Planète d'origine
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["planet_origin"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
                 <input class="form-control"
                        type="text"
                        name="planet_origin"
@@ -138,11 +133,6 @@ if (isset($_POST['reset'])) {
             </label>
             <label class="control-label col-6">
                 Statut
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["statut"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
                 <input class="form-control"
                        type="text"
                        name="statut"
@@ -151,11 +141,6 @@ if (isset($_POST['reset'])) {
             </label>
             <label class="control-label col-6">
                 Histoire
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["story"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
                 <input class="form-control"
                        type="text"
                        name="story"
@@ -164,11 +149,6 @@ if (isset($_POST['reset'])) {
             </label>
             <label class="control-label col-6">
                 Apparition
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["apparition"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
                 <input class="form-control"
                        type="text"
                        name="apparition"
@@ -177,11 +157,6 @@ if (isset($_POST['reset'])) {
             </label>
             <label class="control-label col-6">
                 Doublage
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["doubling"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
                 <input class="form-control"
                        type="text"
                        name="doubling"
