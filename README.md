@@ -1,12 +1,18 @@
 ### Database creation with sqlite3
-#### Type this command in your terminal
 
+### SQLite is already installed on Linux or macOS. To check if it's already installed, type the command:
+```bash
+sqlite3 --version
+```
+
+### For Windows you need to install it: https://sqlite.org/download.html
+
+### Then type this command in your terminal to create your database
 ```bash
 sqlite3 dragon_ball.db  
 ```
 
 ### Creation of the `personnage` table
-
 ```sql
 CREATE TABLE IF NOT EXISTS personnage (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
