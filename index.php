@@ -1,17 +1,47 @@
 <?php
+
 require_once('dbConnect.php');
 
-// Requête préparée
-$inputNom = $_REQUEST['nom'];
-$inputRace = $_REQUEST['race'];
-$inputAge = $_REQUEST['age'];
-$inputTechnique = $_REQUEST['technique'];
-$inputTransformation = $_REQUEST['transformation'];
-$inputPlanetOrigin = $_REQUEST['planet_origin'];
-$inputStatut = $_REQUEST['statut'];
-$inputStory = $_REQUEST['story'];
-$inputApparition = $_REQUEST['apparition'];
-$inputDoubling = $_REQUEST['doubling'];
+function redBorderIfRequiredFlied(string $inputValue): string
+{
+    return isset($_POST["$inputValue"]) && empty($_POST["$inputValue"]) ? "border border-danger" : "";
+}
+
+$inputNom = "";
+$inputRace = "";
+$inputAge = "";
+$inputTechnique = "";
+$inputTransformation = "";
+$inputPlanetOrigin = "";
+$inputStatut = "";
+$inputStory = "";
+$inputApparition = "";
+$inputDoubling = "";
+
+
+if (
+    isset($_REQUEST['nom']) &&
+    isset($_REQUEST['race']) &&
+    isset($_REQUEST['age']) &&
+    isset($_REQUEST['technique']) &&
+    isset($_REQUEST['transformation']) &&
+    isset($_REQUEST['planet_origin']) &&
+    isset($_REQUEST['statut']) &&
+    isset($_REQUEST['story']) &&
+    isset($_REQUEST['apparition']) &&
+    isset($_REQUEST['doubling'])
+) {
+    $inputNom = $_REQUEST['nom'];
+    $inputRace = $_REQUEST['race'];
+    $inputAge = $_REQUEST['age'];
+    $inputTechnique = $_REQUEST['technique'];
+    $inputTransformation = $_REQUEST['transformation'];
+    $inputPlanetOrigin = $_REQUEST['planet_origin'];
+    $inputStatut = $_REQUEST['statut'];
+    $inputStory = $_REQUEST['story'];
+    $inputApparition = $_REQUEST['apparition'];
+    $inputDoubling = $_REQUEST['doubling'];
+}
 
 if (
     !empty($inputNom) &&
@@ -25,6 +55,7 @@ if (
     isset($inputApparition) &&
     isset($inputDoubling)
 ) {
+    // Requête préparée
     /** @var PDO $pdo */
     $prepare = $pdo->prepare("INSERT INTO personnage (nom, race, age, technique, transformation, planet_origin, statut, story, apparition, doubling) VALUES (:nom, :race, :age, :technique, :transformation, :planet_origin, :statut, :story, :apparition, :doubling)");
     $prepare->bindParam(':nom', $inputNom);
@@ -38,10 +69,6 @@ if (
     $prepare->bindParam(':apparition', $inputApparition);
     $prepare->bindParam(':doubling', $inputDoubling);
     $prepare->execute();
-}
-
-if (isset($_POST['reset'])) {
-    reset($_POST);
 }
 ?>
 
@@ -60,67 +87,47 @@ if (isset($_POST['reset'])) {
         <div class="form-group mb-5 row">
             <label class="control-label col-6">
                 Nom*
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["nom"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
-                <input class="form-control"
+                <input class="form-control <?= redBorderIfRequiredFlied("race") ?>"
                        type="text"
                        name="nom"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["nom"] ?>"
+                       placeholder="Vegeta"
+                       value="<?= $inputNom ?>"
                 >
             </label>
             <label class="control-label col-6">
                 Race*
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["race"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
-                <input class="form-control"
+                <input class="form-control <?= redBorderIfRequiredFlied("race") ?>"
                        type="text"
                        name="race"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["race"] ?>"
+                       placeholder="Saiyan"
+                       value="<?= $inputRace ?>"
                 >
             </label>
             <label class="control-label col-6">
                 Âge*
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["age"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
-                <input class="form-control"
+                <input class="form-control <?= redBorderIfRequiredFlied("age") ?>"
                        type="text"
                        name="age"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["age"] ?>"
+                       placeholder="30"
+                       value="<?= $inputAge ?>"
                 >
             </label>
             <label class="control-label col-6">
                 Technique*
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["technique"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
-                <input class="form-control"
+                <input class="form-control <?= redBorderIfRequiredFlied("technique") ?>"
                        type="text"
                        name="technique"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["technique"] ?>"
+                       placeholder="Final Flash, Big Bang Attack"
+                       value="<?= $inputTechnique ?>"
                 >
             </label>
             <label class="control-label col-6">
                 Transformation*
-                <span class="m-4 small text-danger">
-                    <?php if ($_POST["transformation"] === "") {
-                        echo 'Champ requis';
-                    } ?>
-                </span>
-                <input class="form-control"
+                <input class="form-control <?= redBorderIfRequiredFlied("transformation") ?>"
                        type="text"
                        name="transformation"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["transformation"] ?>"
+                       placeholder="Super Saiyan, Super Saiyan Blue"
+                       value="<?= $inputTransformation ?>"
                 >
             </label>
             <label class="control-label col-6">
@@ -128,7 +135,8 @@ if (isset($_POST['reset'])) {
                 <input class="form-control"
                        type="text"
                        name="planet_origin"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["planet_origin"] ?>"
+                       placeholder="Planète Vegeta"
+                       value="<?= $inputPlanetOrigin ?>"
                 >
             </label>
             <label class="control-label col-6">
@@ -136,7 +144,8 @@ if (isset($_POST['reset'])) {
                 <input class="form-control"
                        type="text"
                        name="statut"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["statut"] ?>"
+                       placeholder="Saiyan de rang élite"
+                       value="<?= $inputStatut ?>"
                 >
             </label>
             <label class="control-label col-6">
@@ -144,7 +153,8 @@ if (isset($_POST['reset'])) {
                 <input class="form-control"
                        type="text"
                        name="story"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["story"] ?>"
+                       placeholder="Il est né vers 732. Dans sa jeunesse, il a vu son père..."
+                       value="<?= $inputStory ?>"
                 >
             </label>
             <label class="control-label col-6">
@@ -152,7 +162,8 @@ if (isset($_POST['reset'])) {
                 <input class="form-control"
                        type="text"
                        name="apparition"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["apparition"] ?>"
+                       placeholder="DBZ: épisode 3"
+                       value="<?= $inputApparition ?>"
                 >
             </label>
             <label class="control-label col-6">
@@ -160,7 +171,8 @@ if (isset($_POST['reset'])) {
                 <input class="form-control"
                        type="text"
                        name="doubling"
-                       value="<?= isset($_POST['reset']) ? "" : $_POST["doubling"] ?>"
+                       placeholder="VF: Eric Legrand"
+                       value="<?= $inputDoubling ?>"
                 >
             </label>
             <div class="mt-2">
@@ -177,7 +189,7 @@ if (isset($_POST['reset'])) {
     $results = $pdo->query($sql)->fetchAll();
 
     if (!empty($results)) {
-        echo "<table class='table'>";
+        echo "<table class='table table-sm m-5'>";
         echo "<tr><th>Nom</th><th>Race</th><th>Âge</th><th>Technique</th><th>Transformation</th><th>Planète d'origine</th><th>Statut</th><th>Histoire</th><th>Apparition</th><th>Doublage</th><tr>";
         foreach ($results as $row) {
             echo "<tr>";
